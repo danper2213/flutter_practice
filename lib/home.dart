@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/home_controller.dart';
+import 'package:flutter_practice/shimmer_custom.dart';
+import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Home extends GetView<HomeController> {
+  Home({Key? key}) : super(key: key);
 
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
   bool enableShimmer = true;
   @override
   Widget build(BuildContext context) {
@@ -19,9 +17,7 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.local_activity_sharp),
         onPressed: () {
-          setState(() {
-            enableShimmer = !enableShimmer;
-          });
+          //enableShimmer = !enableShimmer;
         },
       ),
       body: Container(
@@ -31,32 +27,19 @@ class _HomeState extends State<Home> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
-              child: enableShimmer
-                  ? Shimmer.fromColors(
-                      baseColor: Colors.grey[500]!,
-                      highlightColor: Colors.grey[100]!,
-                      child: ListView.builder(
-                        itemCount: 20,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text('Title $index'),
-                            subtitle: Text('Subtitle $index'),
-                            leading: CircleAvatar(child: Text('$index')),
-                          );
-                        },
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: 20,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text('Title $index'),
-                          subtitle: Text('Subtitle $index'),
-                          leading: CircleAvatar(child: Text('$index')),
-                        );
-                      },
-                    ),
-            ),
+                child: controller.obx(
+              (state) => ListView.builder(
+                itemCount: 20,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text('Title $index'),
+                    subtitle: Text('Subtitle $index'),
+                    leading: CircleAvatar(child: Text('$index')),
+                  );
+                },
+              ),
+              onLoading: ShimmerCustom(),
+            )),
           ],
         ),
       ),
