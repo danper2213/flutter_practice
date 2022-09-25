@@ -6,7 +6,7 @@ class ShimmerCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       //padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
       child: Column(

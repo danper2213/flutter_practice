@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/home_controller.dart';
 import 'package:flutter_practice/shimmer_custom.dart';
+import 'package:flutter_practice/theme_custom.dart';
+import 'package:flutter_practice/views/text_validation.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 
 class Home extends GetView<HomeController> {
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
-  bool enableShimmer = true;
+  final bool enableShimmer = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +19,7 @@ class Home extends GetView<HomeController> {
         child: const Icon(Icons.local_activity_sharp),
         onPressed: () {
           //enableShimmer = !enableShimmer;
+          Get.to(() => const TextFieldValidation());
         },
       ),
       body: Container(
@@ -32,13 +34,19 @@ class Home extends GetView<HomeController> {
                 itemCount: 20,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text('Title $index'),
-                    subtitle: Text('Subtitle $index'),
+                    title: Text(
+                      'Title $index',
+                      style: TextStyleCustom.regular18(),
+                    ),
+                    subtitle: Text(
+                      'Subtitle $index',
+                      style: TextStyleCustom.regular16(),
+                    ),
                     leading: CircleAvatar(child: Text('$index')),
                   );
                 },
               ),
-              onLoading: ShimmerCustom(),
+              onLoading: const ShimmerCustom(),
             )),
           ],
         ),
